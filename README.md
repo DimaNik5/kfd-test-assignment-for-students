@@ -13,7 +13,7 @@ A working console application that manages:
 ### Business Rules
 - **Student**: max 3 books, 14 days
 - **Faculty**: max 10 books, 30 days  
-- **Guest**: max 1 book, 7 days
+- **Guest**: max 1 library.book, 7 days
 - Books cannot be borrowed if unavailable
 - Users cannot exceed their borrowing limit
 
@@ -21,7 +21,7 @@ A working console application that manages:
 
 ### ✅ **Does it work?** (Most Important)
 - Program runs without crashes
-- Basic features work (add book, borrow, return)
+- Basic features work (add library.book, borrow, return)
 - Menu navigation functions
 
 ### ✅ **OOP Understanding**
@@ -30,7 +30,7 @@ A working console application that manages:
 - Basic encapsulation (private fields, public methods)
 
 ### ✅ **Data Structure Choices**
-- HashMap/Map for books and users (fast lookup)
+- HashMap/Map for books and library.users (fast lookup)
 - List for borrowing history (ordered records)
 - Set for unique collections where appropriate
 - Can explain your choices
@@ -42,7 +42,7 @@ A working console application that manages:
 
 ## Required Features
 1. Add/remove books
-2. Register users (different types)
+2. Register library.users (different types)
 3. Borrow/return books with validation
 4. Search books by title/author/ISBN
 5. View overdue books
@@ -62,7 +62,7 @@ Use these as guidance - don't copy-paste, but understand the structure:
 ### Core Interfaces
 ```java
 // What your library system should be able to do
-public interface LibraryOperations {
+public interface library.LibraryOperations {
     // Book management
     void addBook(String title, String author, String isbn, String genre);
     boolean removeBook(String isbn);
@@ -129,10 +129,10 @@ public class Student extends User {
 
 ### Data Structure Usage
 ```java
-public class Library implements LibraryOperations {
+public class Library implements library.LibraryOperations {
     // Use HashMap for fast lookup by key
     private Map<String, Book> books;      // ISBN -> Book
-    private Map<String, User> users;      // UserID -> User
+    private Map<String, User> library.users;      // UserID -> User
     
     // Use List for ordered collections
     private List<BorrowingRecord> borrowingHistory;
@@ -141,26 +141,26 @@ public class Library implements LibraryOperations {
     private Set<String> genres;
     
     public Library() {
-        books = new HashMap<>();           // O(1) book lookup
-        users = new HashMap<>();           // O(1) user lookup
+        books = new HashMap<>();           // O(1) library.book lookup
+        library.users = new HashMap<>();           // O(1) user lookup
         borrowingHistory = new ArrayList<>(); // Chronological order
         genres = new HashSet<>();          // Unique genres only
     }
     
     @Override
     public boolean borrowBook(String userId, String isbn) {
-        User user = users.get(userId);     // Fast lookup
-        Book book = books.get(isbn);       // Fast lookup
+        User user = library.users.get(userId);     // Fast lookup
+        Book library.book = books.get(isbn);       // Fast lookup
         
         // Validation logic
-        if (user == null || book == null) return false;
-        if (!book.isAvailable()) return false;
+        if (user == null || library.book == null) return false;
+        if (!library.book.isAvailable()) return false;
         if (!user.canBorrow()) return false;
         
         // Process borrowing
-        book.setAvailable(false);
+        library.book.setAvailable(false);
         user.getBorrowedBooks().add(isbn);
-        borrowingHistory.add(new BorrowingRecord(user, book, LocalDate.now()));
+        borrowingHistory.add(new BorrowingRecord(user, library.book, LocalDate.now()));
         
         return true;
     }
