@@ -26,7 +26,7 @@ public final class UserOperations implements LibraryOperations {
 
         if(user.borrowBook(book)){
             book.setBorrowed(true);
-            book.setUser(user);
+            book.setUserId(user.getUserId());
             return true;
         }
 

@@ -14,4 +14,9 @@ public class Student extends User{
     public int getBorrowDays() {
         return 14;
     }
+
+    @Override
+    public UserType getUserType() {
+        return UserType.STUDENT;
+    }
 }

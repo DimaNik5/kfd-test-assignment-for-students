@@ -14,4 +14,9 @@ public class Faculty extends User{
     public int getBorrowDays() {
         return 30;
     }
+
+    @Override
+    public UserType getUserType() {
+        return UserType.FACULTY;
+    }
 }

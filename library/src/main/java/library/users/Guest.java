@@ -14,4 +14,9 @@ public class Guest extends User{
     public int getBorrowDays() {
         return 7;
     }
+
+    @Override
+    public UserType getUserType() {
+        return UserType.GUEST;
+    }
 }

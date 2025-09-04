@@ -3,6 +3,7 @@ package library.book;
 public class BorrowedBook extends Book{
     private String borrowDay;
     private String returnDay;
+
     public BorrowedBook(String title, String author, String isbn, String genre) {
         super(title, author, isbn, genre);
     }

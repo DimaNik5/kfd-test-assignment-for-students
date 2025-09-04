@@ -2,7 +2,9 @@ package library;
 
 import library.book.Book;
 import library.data.Data;
+import library.users.AdminOperations;
 import library.users.User;
+import library.users.UserOperations;
 import library.users.UserType;
 
 import java.util.ArrayList;
@@ -37,4 +39,21 @@ public interface LibraryOperations {
     boolean borrowBook(String isbn);
     boolean returnBook(String isbn);
     List<Book> getOverdueBooks();
+
+    default void loadData(String file){
+        Data.load(file);
+    }
+
+    default void saveData(String file){
+        Data.save(file);
+    }
+
+    static LibraryOperations login(String userId){
+        if(userId.equals("admin")){
+            return new AdminOperations();
+        }
+        User user = Data.users.get(userId);
+        if(user == null) return null;
+        return new UserOperations(user);
+    }
 }

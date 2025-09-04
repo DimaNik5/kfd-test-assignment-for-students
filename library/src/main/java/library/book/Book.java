@@ -9,7 +9,7 @@ public class Book {
     protected String genre;
 
     private boolean isBorrowed;
-    private User user;
+    private String userId;
 
     public Book(String title, String author, String isbn, String genre) {
         this.title = title;
@@ -18,7 +18,30 @@ public class Book {
         this.genre = genre;
 
         isBorrowed = false;
-        user = null;
+        userId = "";
+    }
+
+    public static Book load(String info){
+        String[] comp = info.split(";");
+        if(comp.length < 4) return null;
+        Book book = new Book(comp[0], comp[1], comp[2], comp[3]);
+        if(comp.length == 5){
+            book.setBorrowed(true);
+            book.setUserId(comp[4]);
+        }
+        return book;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder(title).append(';')
+                                    .append(author).append(';')
+                                    .append(isbn).append(';')
+                                    .append(genre);
+        if(isBorrowed){
+            str.append(';').append(userId);
+        }
+        return str.toString();
     }
 
     public boolean isBorrowed() {
@@ -29,12 +52,12 @@ public class Book {
         isBorrowed = borrowed;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
