@@ -2,6 +2,7 @@ package library.users;
 
 import library.LibraryOperations;
 import library.book.Book;
+import library.book.BorrowedBook;
 import library.data.Data;
 
 import java.util.ArrayList;
@@ -33,7 +34,9 @@ public final class AdminOperations implements LibraryOperations {
             case GUEST -> user = new Guest(name, userId, email);
             case STUDENT -> user = new Student(name, userId, email);
             case FACULTY -> user = new Faculty(name, userId, email);
-            default -> throw new RuntimeException("Uncorrected UserType: " + type.toString());
+            default -> {
+                return false;
+            }
         }
         Data.users.put(userId, user);
         return true;
@@ -56,6 +59,21 @@ public final class AdminOperations implements LibraryOperations {
 
     @Override
     public List<Book> getOverdueBooks() {
+        List<Book> b = new ArrayList<>();
+        for(Book book : Data.books.values()){
+            if(book.isBorrowed()){
+                User user = Data.users.get(book.getUserId());
+                if(user == null) throw new RuntimeException("Not found user: " + book.getUserId());
+                for(Book bb : user.getOverdueBooks()){
+                    if(bb.getIsbn().equals(book.getIsbn())) b.add(book);
+                }
+            }
+        }
+        return b;
+    }
+
+    @Override
+    public List<Book> getBorrowedBooks(){
         List<Book> b = new ArrayList<>();
         for(Book book : Data.books.values()){
             if(book.isBorrowed()) b.add(book);

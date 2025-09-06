@@ -39,12 +39,13 @@ public interface LibraryOperations {
     boolean borrowBook(String isbn);
     boolean returnBook(String isbn);
     List<Book> getOverdueBooks();
+    List<Book> getBorrowedBooks();
 
-    default void loadData(String file){
+    static void loadData(String file){
         Data.load(file);
     }
 
-    default void saveData(String file){
+    static void saveData(String file){
         Data.save(file);
     }
 

@@ -46,4 +46,9 @@ public final class UserOperations implements LibraryOperations {
     public List<Book> getOverdueBooks() {
         return user.getOverdueBooks();
     }
+
+    @Override
+    public List<Book> getBorrowedBooks(){
+        return user.getBorrowedBooks();
+    }
 }

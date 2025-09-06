@@ -23,7 +23,7 @@ public final class Data {
         try(BufferedReader bf = new BufferedReader(new FileReader(file))){
             String line;
             int i = 0;
-            while(!(line = bf.readLine()).isEmpty()){
+            while((line = bf.readLine()) != null){
                 if(i == 0){
                     if(line.equals(BOOK)){
                         i++;
@@ -55,12 +55,16 @@ public final class Data {
     public static void save(String file){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
             bw.write(BOOK);
+            bw.write('\n');
             for (Book b : books.values()){
                 bw.write(b.toString());
+                bw.write('\n');
             }
             bw.write(USER);
+            bw.write('\n');
             for(User user : users.values()){
                 bw.write(user.toString());
+                bw.write('\n');
             }
         }catch (Exception e){
             throw new RuntimeException(e);

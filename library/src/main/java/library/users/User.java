@@ -128,8 +128,8 @@ public abstract class User {
         this.email = email;
     }
 
-    public List<BorrowedBook> getBorrowedBooks() {
-        return borrowedBooks;
+    public List<Book> getBorrowedBooks() {
+        return new ArrayList<>(borrowedBooks);
     }
 
     public void setBorrowedBooks(List<BorrowedBook> borrowedBooks) {
